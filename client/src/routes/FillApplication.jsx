@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 const FillApplication = () => {
-  // const checkSem = {};
   class Pair {
     constructor(name, cost) {
       this.name = name;
@@ -19,7 +18,6 @@ const FillApplication = () => {
     }
   }
 
-  // const [sems, setSems] = useState([]);
   const [applications, setApplications] = useState(null);
   const [subjects, setSubjects] = useState([]);
   const { user, token } = useSelector((state) => state);
@@ -109,6 +107,7 @@ const FillApplication = () => {
 
   return (
     <div>
+      <h1>Fill Application</h1>
       <h1>Fill Application</h1>
       <h1>Select subjects below</h1>
       {applications ? (
