@@ -101,6 +101,8 @@ const FillApplication = () => {
     razor.open();
   };
 
+  console.log(total, applications);
+
   useEffect(() => {
     fetchApplications();
   }, []);
