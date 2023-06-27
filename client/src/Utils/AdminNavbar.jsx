@@ -17,6 +17,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../state";
+import { loggingOut } from "../api";
 
 const AdminNavbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -41,6 +42,13 @@ const AdminNavbar = () => {
   };
 
   const logout = () => {
+    loggingOut(token)
+      .then((res) => {
+        console.log("res after logout", res);
+      })
+      .catch((err) => {
+        console.log("err:-> ", err);
+      });
     dispatch(setLogout());
     navigate("/");
   };

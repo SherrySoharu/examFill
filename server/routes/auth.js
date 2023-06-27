@@ -4,6 +4,7 @@ import {
   studentRegister,
   studentLogin,
 } from "../controllers/auth.js";
+import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 

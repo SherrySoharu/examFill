@@ -20,7 +20,7 @@ const FillApplication = () => {
     }
   }
 
-  const [applications, setApplications] = useState(null);
+  const [applications, setApplications] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const { user, token } = useSelector((state) => state);
 
@@ -117,7 +117,7 @@ const FillApplication = () => {
       <h1>Fill Application</h1>
       <h1>Fill Application</h1>
       <h1>Select subjects below</h1>
-      {applications ? (
+      {applications[0] ? (
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

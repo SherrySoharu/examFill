@@ -277,6 +277,12 @@ export const getKey = async (req, res) => {
 
 export const getStudent = async (req, res) => {
   try {
+    console.log(
+      "razor ids:-> ",
+      process.env.KEY_ID,
+      " ",
+      process.env.KEY_SECRET
+    );
     const { studentId } = req.params;
     const student = await Student.findById(studentId);
     res.status(200).json(student);

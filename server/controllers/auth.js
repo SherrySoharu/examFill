@@ -7,7 +7,8 @@ import Student from "../models/Student.js";
 export const clgRegister = async (req, res) => {
   try {
     const image = req.file;
-    const { clgName, adminUsername, adminPassword } = req.body;
+    const { clgName, adminUsername, adminPassword, keyid, keysecret } =
+      req.body;
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(adminPassword, salt);
     let id = generateUniqueId({
@@ -24,8 +25,11 @@ export const clgRegister = async (req, res) => {
       clgId: id,
       adminUsername,
       adminPassword: passwordHash,
+      keyId: keyid,
+      keySecret: keysecret,
     });
     const savedCollege = await newCollege.save();
+    console.log("new College:-> ", newCollege);
     res.status(201).json(savedCollege);
   } catch (err) {
     res.status(500).json({ error: err.message });

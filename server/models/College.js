@@ -25,6 +25,14 @@ const ClgSchema = new mongoose.Schema(
       url: String,
       filename: String,
     },
+    keyId: {
+      type: String,
+      required: true,
+    },
+    keySecret: {
+      type: String,
+      required: true,
+    },
     students: [
       {
         type: mongoose.Schema.Types.ObjectId,
