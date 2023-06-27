@@ -257,6 +257,7 @@ export const paymentVerification = async (req, res) => {
         razorpay_payment_id,
         razorpay_signature,
         amount: paymentObject.amount,
+        semester: paymentObject.semesters,
         clgId: student.college,
       });
       await newPayment.save();

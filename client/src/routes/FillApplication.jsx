@@ -10,6 +10,8 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+let sems = [];
+
 const FillApplication = () => {
   class Pair {
     constructor(name, cost) {
@@ -36,11 +38,14 @@ const FillApplication = () => {
   //FUNCTION TO HANDLE CHANGE IN THE SUBJECT SELECTION CHECKBOX
   const handleCheck = (cost, semester, e) => {
     if (!e.target.checked) {
+      let idx = sems.findIndex((ele) => ele === semester);
+      if (idx >= 0) sems.splice(idx, 1);
       let newSubjects = subjects.filter(
         (subject) => subject.name !== e.target.value
       );
       setSubjects(newSubjects);
     } else {
+      sems.push(semester);
       setSubjects([...subjects, new Pair(e.target.value, cost)]);
     }
   };
@@ -63,6 +68,7 @@ const FillApplication = () => {
     );
     const payData = {
       amount,
+      semesters: [...new Set(sems)],
       subjects,
     };
     const {
@@ -74,7 +80,6 @@ const FillApplication = () => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("order hei ye ", order, key);
     const options = {
       key,
       amount,
