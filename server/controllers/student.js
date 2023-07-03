@@ -2,25 +2,33 @@ import bcrypt from "bcrypt";
 import Student from "../models/Student.js";
 import Datesheet from "../models/Datesheet.js";
 import Application from "../models/Appication.js";
-import { instance } from "../index.js";
 import crypto from "crypto";
 import Record from "../models/Record.js";
+import College from "../models/College.js";
+import Razorpay from "razorpay";
 
 let paymentObject = null;
 
 export const checkout = async (req, res) => {
   try {
-    console.log("checkout chala");
-    console.log("data:-> ", req.body);
+    const { studentId } = req.params;
     paymentObject = req.body;
+    const student = await Student.findById(studentId);
+    const college = await College.findById(student.college);
     const options = {
       amount: Number(req.body.amount * 100),
       currency: "INR",
     };
+    let instance = new Razorpay({
+      key_id: college.keyId,
+      key_secret: college.keySecret,
+    });
     const order = await instance.orders.create(options);
-    res.status(200).json({ success: true, order });
+    let orderObject = { order, college };
+    console.log(orderObject);
+    res.status(200).json({ success: true, orderObject });
   } catch (err) {
-    res.status(404).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 };
 
@@ -38,7 +46,7 @@ export const paymentVerification = async (req, res) => {
       .digest("hex");
 
     const isAuthentic = expectedSignature === razorpay_signature;
-    console.log("payment object:-> ", paymentObject);
+    console.log("payment object:-> ", req.body, isAuthentic);
     if (isAuthentic) {
       let subLen = paymentObject.subjects;
       let va = "",
@@ -301,7 +309,6 @@ export const getDatesheet = async (req, res) => {
       semester: student.semester,
       branch: student.branch,
     });
-    console.log(datesheet);
     res.status(200).json(datesheet);
   } catch (err) {
     res.status(404).json({ error: err.message });
@@ -319,7 +326,6 @@ export const getApplication = async (req, res) => {
       semester: { $lte: student.semester },
       isActive: true,
     });
-    console.log(applications);
     res.status(200).json(applications);
   } catch (err) {
     res.status(404).json({ error: err.message });

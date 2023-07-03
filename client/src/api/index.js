@@ -49,10 +49,6 @@ export const getApplication = (id, token) =>
   axios.get(`${url}/student/${id}/application`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-export const sendUser = (studentId, token) =>
-  axios.get(`${url}/${studentId}/clgCred`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
 export const loggingOut = (token) =>
   axios.get(`${url}/auth/logout`, {
     headers: { Authorization: `Bearer ${token}` },

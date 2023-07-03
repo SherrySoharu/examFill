@@ -18,6 +18,5 @@ router.get("/:studentId/datesheet", verifyToken, getDatesheet);
 router.get("/:studentId/application", verifyToken, getApplication);
 router.post("/:studentId/checkout", verifyToken, checkout);
 router.post("/:studentId/paymentverification", paymentVerification);
-router.get("/:studentID/getkey", verifyToken, getKey);
 
 export default router;

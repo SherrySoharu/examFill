@@ -16,9 +16,6 @@ import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { clgRegister, studentRegister } from "./controllers/auth.js";
 import { verifyToken } from "./middleware/auth.js";
 import { addDatesheet } from "./controllers/admin.js";
-import Razorpay from "razorpay";
-import Student from "./models/Student.js";
-import College from "./models/College.js";
 
 // CONFIGURATION - middleware and package configuration
 
@@ -55,31 +52,6 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-//RAZORPAY CONFIGURATION
-
-// let instance = null;
-// if (process.env.KEY_ID) {
-//   console.log(
-//     "razor ids are:-> ",
-//     process.env.KEY_ID,
-//     " ",
-//     process.env.KEY_SECRET
-//   );
-//   instance = new Razorpay({
-//     key_id: process.env.KEY_ID,
-//     key_secret: process.env.KEY_SECRET,
-//   });
-// } else {
-//   console.log(
-//     "razor ids are:-> ",
-//     process.env.KEY_ID,
-//     " ",
-//     process.env.KEY_SECRET
-//   );
-// }
-
-// export { instance };
-
 // ROUTES WITH FILES
 
 app.post("/auth/clgregister", upload.single("photo"), clgRegister);
@@ -111,36 +83,6 @@ mongoose
   .catch((e) => {
     console.log("ERROR:", e);
   });
-
-//ROUTE TO GET RAZORPAY CRED. FROM THE USER
-
-let instance = null;
-
-app.get("/:studentId/clgCred", verifyToken, async (req, res) => {
-  try {
-    const { studentId } = req.params;
-    const student = await Student.findById(studentId);
-    // console.log("current logged in user:-> ", college);
-    const college = await College.findById(student.college);
-    process.env.KEY_ID = college.keyId;
-    process.env.KEY_SECRET = college.keySecret;
-    instance = new Razorpay({
-      key_id: process.env.KEY_ID,
-      key_secret: process.env.KEY_SECRET,
-    });
-    console.log(
-      "razor ids are:-> ",
-      process.env.KEY_ID,
-      " ",
-      process.env.KEY_SECRET
-    );
-    res.status(200).json(instance);
-  } catch (err) {
-    console.log("err:-> ", err);
-  }
-});
-
-export { instance };
 
 app.get("/auth/logout", verifyToken, async (req, res) => {
   try {

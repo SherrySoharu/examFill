@@ -1,26 +1,26 @@
 import { Container } from "@material-ui/core";
 import { Outlet } from "react-router-dom";
 import StudentNavBar from "../Utils/StudentNavbar";
-import { sendUser } from "../api";
+// import { sendUser } from "../api";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const AdminTemplet = () => {
   const { user, token } = useSelector((state) => state);
 
-  const sendUserData = () => {
-    sendUser(user._id, token)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("err:-> ", err);
-      });
-  };
+  // const sendUserData = () => {
+  //   sendUser(user._id, token)
+  //     .then((res) => {
+  //       console.log("keys:-> ", res.data.key_id, res.data.key_secret);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err:-> ", err);
+  //     });
+  // };
 
-  useEffect(() => {
-    sendUserData();
-  }, []);
+  // useEffect(() => {
+  //   sendUserData();
+  // }, []);
   return (
     <div>
       <StudentNavBar />

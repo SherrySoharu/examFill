@@ -58,21 +58,21 @@ const FillApplication = () => {
 
   //FUNCTION TO PROCESS FEES PAYMENT
   const payFees = async (amount) => {
-    const {
-      data: { key },
-    } = await axios.get(
-      `http://www.localhost:3001/student/${user._id}/getkey`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    // const {
+    //   data: { key },
+    // } = await axios.get(
+    //   `http://www.localhost:3001/student/${user._id}/getkey`,
+    //   {
+    //     headers: { Authorization: `Bearer ${token}` },
+    //   }
+    // );
     const payData = {
       amount,
       semesters: [...new Set(sems)],
       subjects,
     };
     const {
-      data: { order },
+      data: { orderObject },
     } = await axios.post(
       `http://localhost:3001/student/${user._id}/checkout`,
       payData,
@@ -80,15 +80,16 @@ const FillApplication = () => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    console.log("orderObject:-> ", orderObject);
     const options = {
-      key,
+      key: orderObject.college.keyId,
       amount,
       currency: "INR",
       name: user.username,
       description: "Test of payment for hierar",
       image:
         "https://www.aihr.com/wp-content/uploads/hierarchy-culture-cover.png",
-      order_id: order.id,
+      order_id: orderObject.order.id,
       callback_url: `http://localhost:3001/student/${user._id}/paymentverification`,
       prefill: {
         name: `${user.firstName} ${user.lastName}`,
