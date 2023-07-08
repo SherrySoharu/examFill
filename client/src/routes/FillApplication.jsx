@@ -97,7 +97,7 @@ const FillApplication = () => {
         contact: "",
       },
       notes: {
-        address: "College name here",
+        address: `${user.firstName} ${user.lastName}`,
       },
       theme: {
         color: "#121212",

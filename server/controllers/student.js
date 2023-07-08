@@ -34,7 +34,6 @@ export const checkout = async (req, res) => {
 
 export const paymentVerification = async (req, res) => {
   try {
-    console.log("payment verification hit hua:-> ", paymentObject);
     const { studentId } = req.params;
     const student = await Student.findById(studentId);
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
@@ -46,7 +45,13 @@ export const paymentVerification = async (req, res) => {
       .digest("hex");
 
     const isAuthentic = expectedSignature === razorpay_signature;
-    console.log("payment object:-> ", req.body, isAuthentic);
+
+    console.log(
+      "isAuthentic :-> ",
+      expectedSignature,
+      " and ",
+      razorpay_signature
+    );
     if (isAuthentic) {
       let subLen = paymentObject.subjects;
       let va = "",
