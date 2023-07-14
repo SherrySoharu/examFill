@@ -9,6 +9,16 @@ import Razorpay from "razorpay";
 
 let paymentObject = null;
 
+export const getRecords = async (req, res) => {
+  try {
+    const { studentId } = req.params;
+    const records = await Record.find({ student: studentId });
+    res.status(200).json(records);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 export const checkout = async (req, res) => {
   try {
     const { studentId } = req.params;

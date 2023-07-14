@@ -144,10 +144,7 @@ const AdminNavbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt={user.adminUsername}
-                  src="/static/images/avatar/2.jpg"
-                />
+                <Avatar alt={user.adminUsername} src={user.profilePic.url} />
               </IconButton>
             </Tooltip>
             <Menu

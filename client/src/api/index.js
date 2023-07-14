@@ -53,3 +53,7 @@ export const loggingOut = (token) =>
   axios.get(`${url}/auth/logout`, {
     headers: { Authorization: `Bearer ${token}` },
   });
+export const getRecord = (id, token) =>
+  axios.get(`${url}/student/${id}/records`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });

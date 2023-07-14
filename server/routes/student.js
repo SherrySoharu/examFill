@@ -6,7 +6,7 @@ import {
   getApplication,
   paymentVerification,
   checkout,
-  getKey,
+  getRecords,
 } from "../controllers/student.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -18,5 +18,6 @@ router.get("/:studentId/datesheet", verifyToken, getDatesheet);
 router.get("/:studentId/application", verifyToken, getApplication);
 router.post("/:studentId/checkout", verifyToken, checkout);
 router.post("/:studentId/paymentverification", paymentVerification);
+router.get("/:studentId/records", verifyToken, getRecords);
 
 export default router;

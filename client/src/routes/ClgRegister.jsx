@@ -82,7 +82,7 @@ const ClgRegister = () => {
 
   return (
     <div>
-      <Container maxWidth="xs">
+      <Grid container>
         <Grid spacing={2}>
           <Form onSubmit={handleSubmit} encType="multipart/form-data">
             <Grid xs={12}>
@@ -185,7 +185,7 @@ const ClgRegister = () => {
           </Form>
           <Link to={"/adminlogin"}>already have an admin account, Login</Link>
         </Grid>
-      </Container>
+      </Grid>
     </div>
   );
 };

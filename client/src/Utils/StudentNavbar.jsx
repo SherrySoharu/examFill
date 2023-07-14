@@ -144,7 +144,7 @@ const StudentNavBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user.username} src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user.username} src={user.profilePic.url} />
               </IconButton>
             </Tooltip>
             <Menu
