@@ -2,6 +2,17 @@ import bcrypt from "bcrypt";
 import Application from "../models/Appication.js";
 import College from "../models/College.js";
 import Datesheet from "../models/Datesheet.js";
+import Record from "../models/Record.js";
+
+export const getPayments = async (req, res) => {
+  try {
+    const { clgId } = req.params;
+    const records = await Record.find({ clgId }).populate("student");
+    res.status(200).json(records);
+  } catch (err) {
+    res.status(400).json({ error: err.messaeg });
+  }
+};
 
 export const getAdmin = async (req, res) => {
   try {

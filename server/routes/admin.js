@@ -7,6 +7,7 @@ import {
   getApplications,
   activateApplication,
   deactivateApplication,
+  getPayments,
 } from "../controllers/admin.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -19,5 +20,6 @@ router.get("/:clgId/datesheets", verifyToken, getAllDatesheets);
 router.get("/:clgId/applications", verifyToken, getApplications);
 router.patch("/:applicationId/activate", activateApplication);
 router.patch("/:applicationId/deactivate", deactivateApplication);
+router.get("/:clgId/records", verifyToken, getPayments);
 
 export default router;
