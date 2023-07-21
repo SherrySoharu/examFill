@@ -58,14 +58,6 @@ const FillApplication = () => {
 
   //FUNCTION TO PROCESS FEES PAYMENT
   const payFees = async (amount) => {
-    // const {
-    //   data: { key },
-    // } = await axios.get(
-    //   `http://www.localhost:3001/student/${user._id}/getkey`,
-    //   {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //   }
-    // );
     const payData = {
       amount,
       semesters: [...new Set(sems)],

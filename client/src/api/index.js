@@ -57,3 +57,7 @@ export const getRecord = (id, token) =>
   axios.get(`${url}/student/${id}/records`, {
     headers: { Authorization: `Bearer ${token}` },
   });
+export const fetchPaymentRecords = (id, token) =>
+  axios.get(`${url}/admin/${id}/records`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
