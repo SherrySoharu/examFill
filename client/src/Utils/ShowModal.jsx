@@ -1,5 +1,13 @@
-import { Modal, Box, Typography, Button } from "@material-ui/core";
+import {
+  Modal,
+  Box,
+  Typography,
+  Button,
+  CircularProgress,
+} from "@material-ui/core";
 import { useState } from "react";
+import DownloadIcon from "@mui/icons-material/Download";
+import { useSelector } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -14,9 +22,43 @@ const style = {
 };
 
 const ShowModal = ({ data }) => {
+  let [load, setLoad] = useState(false);
+  const { user, token } = useSelector((state) => state);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  // const downloadPdf = () => {
+  //   setLoad(true);
+  let pdfData = {
+    user,
+    data,
+  };
+  console.log(pdfData);
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(pdfData),
+  };
+  const getPdf = () => {
+    fetch(`http://localhost:3001/student/${user._id}/getpdf`, requestOptions)
+      .then((res) => res.blob())
+      .then((blob) => {
+        console.log("blob:-> ", blob);
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "dynamic.pdf");
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((err) => {
+        console.log("error:-> ", err);
+      });
+  };
+
   return (
     <span>
       <Button
@@ -119,6 +161,16 @@ const ShowModal = ({ data }) => {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Total amount paid: {data.amount}/-
           </Typography>
+          <Button variant="contained" color="primary" onClick={getPdf}>
+            {load ? (
+              <CircularProgress color="success" />
+            ) : (
+              <>
+                {" Admit Card"}
+                <DownloadIcon />
+              </>
+            )}
+          </Button>
         </Box>
       </Modal>
     </span>

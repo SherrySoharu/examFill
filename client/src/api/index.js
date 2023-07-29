@@ -61,3 +61,7 @@ export const fetchPaymentRecords = (id, token) =>
   axios.get(`${url}/admin/${id}/records`, {
     headers: { Authorization: `Bearer ${token}` },
   });
+export const pdfDownload = (id, token, data) =>
+  axios.post(`${url}/student/${id}/getPdf`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
